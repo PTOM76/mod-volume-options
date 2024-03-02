@@ -6,12 +6,12 @@ issueTrackerURL = "https://github.com/PTOM76/mod-volume-options/issues"
 [[mods]]
 modId = "mvo76"
 version = "${version}"
-displayName = "Mod Volume Options"
+displayName = "Mod Sound Volume Options"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/mod-volume-options"
 logoFile = "assets/mvo76/logo.png"
 authors = "Pitan"
 description = '''
-Mod Volume Options is a mod that allows the volume of sounds added by mods to be changed for each mod.
+Mod Sound Volume Options is a mod that allows the volume of sounds added by mods to be changed for each mod.
 '''
 
 [[dependencies.mvo76]]

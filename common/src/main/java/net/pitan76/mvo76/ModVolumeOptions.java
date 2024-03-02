@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ModVolumeOptions {
     public static final String MOD_ID = "mvo76";
-    public static final String MOD_NAME = "Mod Volume Options";
+    public static final String MOD_NAME = "Mod Sound Volume Options";
 
     public static List<String> disabledModIds = new ArrayList<>();
 

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "mvo76",
   "version": "${version}",
-  "name": "Mod Volume Options",
-  "description": "Mod Volume Options is a mod that allows the volume of sounds added by mods to be changed for each mod.",
+  "name": "Mod Sound Volume Options",
+  "description": "Mod Sound Volume Options is a mod that allows the volume of sounds added by mods to be changed for each mod.",
   "authors": [
     "Pitan"
   ],
