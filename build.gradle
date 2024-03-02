@@ -1,0 +1,146 @@
+plugins {
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
+    id 'com.matthewprenger.cursegradle' version '1.+'
+    id "com.modrinth.minotaur" version "2.+"
+}
+
+architectury {
+    minecraft = rootProject.minecraft_version
+}
+
+import com.modrinth.minotaur.dependencies.ModDependency
+
+subprojects {
+    apply plugin: "dev.architectury.loom"
+    apply plugin: "com.modrinth.minotaur"
+    apply plugin: "com.matthewprenger.cursegradle"
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    repositories {
+        maven { url "https://maven.shedaniel.me/" }
+        maven { url "https://maven.pitan76.net/" }
+        maven { url "https://maven.neoforged.net/releases/" }
+
+        maven { url "https://maven.terraformersmc.com/releases" }
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
+
+        modImplementation "net.pitan76:mcpitanlib-common+${rootProject.mcpitanlib_version}"
+    }
+
+    if (name in "fabric,forge,neoforge".split(",")) {
+        var modLoader = name
+
+        if (System.getenv("CURSEFORGE_TOKEN") != null) {
+            curseforge {
+                apiKey = System.getenv("CURSEFORGE_TOKEN")
+                project {
+                    id = '973764'
+                    changelog = ''
+                    releaseType = 'release'
+                    if (modLoader == "fabric") {
+                        addGameVersion "Fabric"
+                    }
+                    if (modLoader == "forge") {
+                        addGameVersion "Forge"
+                    }
+                    if (modLoader == "neoforge") {
+                        addGameVersion '1.20.2'
+                        addGameVersion '1.20.3'
+                        addGameVersion '1.20.4'
+                    } else {
+                        addGameVersion '1.15'
+                        addGameVersion '1.15.1'
+                        addGameVersion '1.15.2'
+                        addGameVersion '1.16'
+                        addGameVersion '1.16.1'
+                        addGameVersion '1.16.2'
+                        addGameVersion '1.16.3'
+                        addGameVersion '1.16.4'
+                        addGameVersion '1.16.5'
+                        addGameVersion '1.17'
+                        addGameVersion '1.17.1'
+                        addGameVersion '1.18'
+                        addGameVersion '1.18.1'
+                        addGameVersion '1.18.2'
+                        addGameVersion '1.19'
+                        addGameVersion '1.19.1'
+                        addGameVersion '1.19.2'
+                        addGameVersion '1.19.3'
+                        addGameVersion '1.19.4'
+                        addGameVersion '1.20'
+                        addGameVersion '1.20.1'
+                        addGameVersion '1.20.2'
+                        addGameVersion '1.20.3'
+                        addGameVersion '1.20.4'
+                    }
+
+                    mainArtifact(tasks.remapJar)
+                }
+                options {
+                    forgeGradleIntegration = false
+                }
+            }
+
+        }
+
+        if (System.getenv("MODRINTH_TOKEN") != null) {
+            modrinth {
+                token = System.getenv("MODRINTH_TOKEN")
+                projectId = 'YvaL4yx6'
+                versionNumber = project.mod_version + "-" + modLoader
+                if (modLoader == "neoforge") {
+                    gameVersions = ['1.20.2', '1.20.3', '1.20.4']
+                } else {
+                    gameVersions = ['1.15', '1.15.1', '1.15.2', '1.16', '1.16.1', '1.16.2', '1.16.3', '1.16.4', '1.16.5', '1.17', '1.17.1', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.19.3', '1.19.4', '1.20', '1.20.1', '1.20.2', '1.20.3', '1.20.4']
+                }
+                versionType = 'release'
+                uploadFile = tasks.remapJar
+                changelog = ''
+                loaders = [modLoader]
+            }
+        }
+    }
+}
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
+
+    archivesBaseName = rootProject.archives_base_name
+    version = rootProject.mod_version
+    group = rootProject.maven_group
+
+    repositories {
+        // Add repositories to retrieve artifacts from in here.
+        // You should only use this when depending on other mods because
+        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+        // for more information about repositories.
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release = 8
+        if (project.name == "neoforge") {
+            options.release = 17
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        } else {
+            options.release = 8
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
+    }
+
+    java {
+        withSourcesJar()
+    }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "mvo76",
+  "version": "${version}",
+  "name": "Mod Volume Options",
+  "description": "Mod Volume Options is a mod that allows the volume of sounds added by mods to be changed for each mod.",
+  "authors": [
+    "Pitan"
+  ],
+  "contact": {
+    "website": "https://www.curseforge.com/minecraft/mc-mods/mod-volume-options",
+    "repo": "https://github.com/PTOM76/mod-volume-options",
+    "issues": "https://github.com/PTOM76/mod-volume-options/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/mvo76/logo.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "net.pitan76.mvo76.fabric.MVOFabric"
+    ],
+    "modmenu": [
+      "net.pitan76.mvo76.fabric.addon.ModMenuAddon"
+    ]
+  },
+  "mixins": [
+    "mvo76-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": "*"
+  }
+}
