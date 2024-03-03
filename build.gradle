@@ -1,3 +1,5 @@
+import com.modrinth.minotaur.dependencies.ModDependency
+
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
@@ -8,8 +10,6 @@ plugins {
 architectury {
     minecraft = rootProject.minecraft_version
 }
-
-import com.modrinth.minotaur.dependencies.ModDependency
 
 subprojects {
     apply plugin: "dev.architectury.loom"
@@ -23,7 +23,6 @@ subprojects {
     repositories {
         maven { url "https://maven.shedaniel.me/" }
         maven { url "https://maven.pitan76.net/" }
-        maven { url "https://maven.neoforged.net/releases/" }
 
         maven { url "https://maven.terraformersmc.com/releases" }
     }
@@ -35,7 +34,7 @@ subprojects {
         modImplementation "net.pitan76:mcpitanlib-common+${rootProject.mcpitanlib_version}"
     }
 
-    if (name in "fabric,forge,neoforge".split(",")) {
+    if (name in "fabric,forge".split(",")) {
         var modLoader = name
 
         if (System.getenv("CURSEFORGE_TOKEN") != null) {
@@ -51,23 +50,20 @@ subprojects {
                     if (modLoader == "forge") {
                         addGameVersion "Forge"
                     }
-                    if (modLoader == "neoforge") {
-                        addGameVersion '1.20.3'
-                        addGameVersion '1.20.4'
-                    } else {
-                        addGameVersion '1.16.4'
-                        addGameVersion '1.16.5'
-                        addGameVersion '1.18'
-                        addGameVersion '1.18.1'
-                        addGameVersion '1.18.2'
-                        addGameVersion '1.19'
-                        addGameVersion '1.19.1'
-                        addGameVersion '1.19.2'
-                        addGameVersion '1.20'
-                        addGameVersion '1.20.1'
-                        addGameVersion '1.20.3'
-                        addGameVersion '1.20.4'
-                    }
+
+                    addGameVersion '1.16.4'
+                    addGameVersion '1.16.5'
+                    addGameVersion '1.18'
+                    addGameVersion '1.18.1'
+                    addGameVersion '1.18.2'
+                    addGameVersion '1.19'
+                    addGameVersion '1.19.1'
+                    addGameVersion '1.19.2'
+                    addGameVersion '1.20'
+                    addGameVersion '1.20.1'
+                    addGameVersion '1.20.3'
+                    addGameVersion '1.20.4'
+
                     relations {
                         if (modLoader == "fabric") {
                             requiredDependency "fabric-api"
@@ -89,11 +85,7 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'SNHwFOKm'
                 versionNumber = project.mod_version + "-" + modLoader
-                if (modLoader == "neoforge") {
-                    gameVersions = ['1.20.2', '1.20.3', '1.20.4']
-                } else {
-                    gameVersions = ['1.16.4', '1.16.5', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.20', '1.20.1', '1.20.3', '1.20.4']
-                }
+                gameVersions = ['1.16.4', '1.16.5', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.20', '1.20.1', '1.20.3', '1.20.4']
                 versionType = 'release'
                 uploadFile = tasks.remapJar
                 changelog = ''
@@ -112,6 +104,8 @@ allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
+
+    rootProject.archivesBaseName = rootProject.archivesBaseName + "-" + rootProject.minecraft_version
 
     archivesBaseName = rootProject.archives_base_name
     version = rootProject.mod_version
