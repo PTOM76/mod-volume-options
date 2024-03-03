@@ -1,22 +1,22 @@
 package net.pitan76.mvo76.screen;
 
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.OptionListWidget;
-import net.minecraft.client.option.SimpleOption;
-import net.minecraft.screen.ScreenTexts;
+import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.pitan76.mcpitanlib.api.client.SimpleScreen;
 import net.pitan76.mcpitanlib.api.client.render.handledscreen.RenderArgs;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
 import net.pitan76.mvo76.*;
+import net.pitan76.mvo76.screen.widget.SimpleListWidget;
+import net.pitan76.mvo76.screen.widget.SimpleSliderWidget;
 
 import java.io.IOException;
 import java.util.List;
 
 public class ConfigScreen extends SimpleScreen {
     protected final Screen parent;
-    protected OptionListWidget listWidget;
+    protected SimpleListWidget listWidget;
 
     public ConfigScreen(Screen parent, Text title) {
         super(title);
@@ -29,7 +29,7 @@ public class ConfigScreen extends SimpleScreen {
 
     @Override
     public void initOverride() {
-        listWidget = new OptionListWidget(client, width, height - 64, 32, 25);
+        listWidget = new SimpleListWidget(client, width, height - 64, 32, 25);
         addDrawableChild_compatibility(listWidget);
 
         List<ModInfo> modList = Platform.getModInfoList();
@@ -40,17 +40,16 @@ public class ConfigScreen extends SimpleScreen {
             if (ModVolumeOptions.disabledModIds.contains(nameSpace)) continue;
 
             String name = modList.stream().filter(modInfo -> modInfo.getId().equals(nameSpace)).findFirst().map(modInfo -> modInfo.name).orElse(nameSpace);
-            String key = name;
+            //String key = name;
            // String key = "options.mvo76." + nameSpace + ".volume";
             // register translation key to lang string
 
-            SimpleOption<Double> option = new SimpleOption<>(key, SimpleOption.emptyTooltip(), (arg, d) ->
+            // todo: MCPitanlib ScreenTexts
+            SimpleSliderWidget option = new SimpleSliderWidget(listWidget, 300, TextUtil.literal(name), Config.getVolume(nameSpace), (arg, d) ->
                     d == 0.0 ? getGenericValueText(arg, ScreenTexts.OFF) : getPercentValueText(arg, d),
-                    SimpleOption.DoubleSliderCallbacks.INSTANCE, 1.0, (d) ->
-                    Config.setVolume(nameSpace, d));
-            option.setValue(Config.getVolume(nameSpace));
+                    (d) -> Config.setVolume(nameSpace, d));
 
-            listWidget.addSingleOptionEntry(option);
+            listWidget.add(option);
         }
 
         addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {

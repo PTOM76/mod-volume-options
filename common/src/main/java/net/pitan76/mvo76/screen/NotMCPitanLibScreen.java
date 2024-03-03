@@ -1,16 +1,16 @@
 package net.pitan76.mvo76.screen;
 
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screen.ScreenTexts;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
 
 public class NotMCPitanLibScreen extends Screen {
     protected Screen parent;
 
     public NotMCPitanLibScreen(Screen parent) {
-        super(Text.empty());
+        super(new LiteralText(""));
         this.parent = parent;
     }
 
@@ -28,10 +28,10 @@ public class NotMCPitanLibScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack stack, int mouseX, int mouseY, float delta) {
         try {
             String str = "Not MCPitanLib. Required for this screen.";
-            context.drawCenteredTextWithShadow(textRenderer, Text.literal(str), width / 2, height / 2, 0xFFFFFF);
+            drawCenteredTextWithShadow(stack, textRenderer, new LiteralText(str).asOrderedText(), width / 2, height / 2, 0xFFFFFF);
         } catch (Exception e) {
             e.printStackTrace();
         }
