@@ -15,13 +15,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ClientWorld.class)
 public abstract class ClientWorldMixin {
 
-    @Shadow protected abstract void playSound(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean useDistance, long seed);
+    @Shadow
+    public abstract void playSound(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean useDistance);
 
     @Unique
     private static boolean mvo76$cancelSound = true;
 
-    @Inject(method = "playSound(DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FFZJ)V", at = @At("HEAD"), cancellable = true)
-    public void mvo76$playSound(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean useDistance, long seed, CallbackInfo ci) {
+    @Inject(method = "playSound(DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FFZ)V", at = @At("HEAD"), cancellable = true)
+    public void mvo76$playSound(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean useDistance, CallbackInfo ci) {
         if (!mvo76$cancelSound) {
             mvo76$cancelSound = true;
             return;
@@ -35,6 +36,6 @@ public abstract class ClientWorldMixin {
         newVolume = ((float) Config.getVolume(namespace)) * volume;
 
         mvo76$cancelSound = false;
-        playSound(x, y, z, event, category, newVolume, pitch, useDistance, seed);
+        playSound(x, y, z, event, category, newVolume, pitch, useDistance);
     }
 }
