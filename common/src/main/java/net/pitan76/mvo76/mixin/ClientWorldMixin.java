@@ -28,12 +28,11 @@ public abstract class ClientWorldMixin {
             return;
         }
         ci.cancel();
-        float newVolume = volume;
 
         Identifier id = event.getId();
         String namespace = id.getNamespace();
         if (!Config.hasVolume(namespace)) return;
-        newVolume = ((float) Config.getVolume(namespace)) * volume;
+        float newVolume = ((float) Config.getVolume(namespace)) * volume;
 
         mvo76$cancelSound = false;
         playSound(x, y, z, event, category, newVolume, pitch, useDistance);
