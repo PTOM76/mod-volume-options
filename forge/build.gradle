@@ -20,7 +20,7 @@ configurations {
     developmentForge.extendsFrom common
 }
 
-project.archivesBaseName = project.archivesBaseName + "-forge"
+project.archivesBaseName = project.archivesBaseName + "-" + project.minecraft_version + "-forge"
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"

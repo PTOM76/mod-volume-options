@@ -31,7 +31,6 @@ public class ConfigScreen extends SimpleScreen {
     @Override
     public void initOverride() {
         listWidget = new SimpleListWidget(client, width, height - 64, 32, 25);
-        addDrawableChild_compatibility(listWidget);
 
         List<ModInfo> modList = Platform.getModInfoList();
         if (modList == null) return;
@@ -42,13 +41,14 @@ public class ConfigScreen extends SimpleScreen {
 
             String name = modList.stream().filter(modInfo -> modInfo.getId().equals(nameSpace)).findFirst().map(modInfo -> modInfo.name).orElse(nameSpace);
 
-            SimpleSliderWidget option = new SimpleSliderWidget(listWidget, 300, TextUtil.literal(name), Config.getVolume(nameSpace), (arg, d) ->
+            SimpleSliderWidget option = new SimpleSliderWidget(listWidget, 310, TextUtil.literal(name), Config.getVolume(nameSpace), (arg, d) ->
                     d == 0.0 ? getGenericValueText(arg, ScreenTexts.OFF) : getPercentValueText(arg, d),
                     (d) -> Config.setVolume(nameSpace, d));
 
             listWidget.add(option);
         }
 
+        addSelectableChild_compatibility(listWidget);
         addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
             if (client == null) return;
             client.options.write();
@@ -80,8 +80,10 @@ public class ConfigScreen extends SimpleScreen {
 
     @Override
     public void render(RenderArgs args) {
-        super.render(args);
+        this.renderBackground(args);
+        this.listWidget.render(args);
         ScreenUtil.RendererUtil.drawText(textRenderer, args.drawObjectDM, title, width / 2 - ScreenUtil.getWidth(title) / 2, 20, 16777215);
+        super.render(args);
     }
 
     @Override

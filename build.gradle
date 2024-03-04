@@ -105,8 +105,6 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    rootProject.archivesBaseName = rootProject.archivesBaseName + "-" + rootProject.minecraft_version
-
     archivesBaseName = rootProject.archives_base_name
     version = rootProject.mod_version
     group = rootProject.maven_group
