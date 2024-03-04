@@ -15,16 +15,16 @@ import net.pitan76.mvo76.*;
 import java.io.IOException;
 import java.util.List;
 
-public class ConfigScreen extends SimpleScreen {
+public class ModVolumeOptionsScreen extends SimpleScreen {
     protected final Screen parent;
     protected SimpleListWidget listWidget;
 
-    public ConfigScreen(Screen parent, Text title) {
+    public ModVolumeOptionsScreen(Screen parent, Text title) {
         super(title);
         this.parent = parent;
     }
 
-    public ConfigScreen(Screen parent) {
+    public ModVolumeOptionsScreen(Screen parent) {
         this(parent, TextUtil.translatable("screen.mvo.options.title"));
     }
 
