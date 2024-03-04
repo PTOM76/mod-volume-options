@@ -9,6 +9,7 @@ import net.pitan76.mcpitanlib.api.client.gui.widget.SimpleSliderWidget;
 import net.pitan76.mcpitanlib.api.client.render.handledscreen.RenderArgs;
 import net.pitan76.mcpitanlib.api.client.render.screen.RenderBackgroundTextureArgs;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
+import net.pitan76.mcpitanlib.api.util.client.ClientUtil;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
 import net.pitan76.mvo76.*;
 
@@ -30,7 +31,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void initOverride() {
-        listWidget = new SimpleListWidget(client, width, height - 64, 32, 25);
+        listWidget = new SimpleListWidget(client, width, height, 32, 25);
 
         List<ModInfo> modList = Platform.getModInfoList();
         if (modList == null) return;
@@ -52,7 +53,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
         addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
             if (client == null) return;
             client.options.write();
-            client.setScreen(parent);
+            ClientUtil.setScreen(parent);
         }));
     }
 
@@ -64,7 +65,8 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
         return TextUtil.translatable("options.generic_value", prefix, value);
     }
 
-    public void removed() {
+    @Override
+    public void removedOverride() {
         if (client == null) return;
         try {
             Config.save();
@@ -73,9 +75,10 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
         }
     }
 
-    public void close() {
+    @Override
+    public void closeOverride() {
         if (client == null) return;
-        client.setScreen(this.parent);
+        ClientUtil.setScreen(this.parent);
     }
 
     @Override
