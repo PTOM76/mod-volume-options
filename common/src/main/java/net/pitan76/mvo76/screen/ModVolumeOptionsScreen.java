@@ -1,5 +1,6 @@
 package net.pitan76.mvo76.screen;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.pitan76.mcpitanlib.api.client.SimpleScreen;
@@ -31,7 +32,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void initOverride() {
-        listWidget = new SimpleListWidget(client, width, height, 32, 25);
+        listWidget = new SimpleListWidget(MinecraftClient.getInstance(), width, height, 32, 25);
 
         List<ModInfo> modList = Platform.getModInfoList();
         if (modList == null) return;
@@ -51,6 +52,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
         addSelectableChild_compatibility(listWidget);
         addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
+            MinecraftClient client = MinecraftClient.getInstance();
             if (client == null) return;
             client.options.write();
             ClientUtil.setScreen(parent);
@@ -77,6 +79,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void closeOverride() {
+        MinecraftClient client = MinecraftClient.getInstance();
         if (client == null) return;
         ClientUtil.setScreen(this.parent);
     }

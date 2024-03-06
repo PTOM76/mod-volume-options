@@ -1,5 +1,6 @@
 package net.pitan76.mvo76.screen;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,6 +19,7 @@ public class NotMCPitanLibScreen extends Screen {
     public void init() {
         try {
             addDrawableChild(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
+                MinecraftClient client = MinecraftClient.getInstance();
                 if (client == null) return;
                 client.options.write();
                 client.setScreen(parent);
