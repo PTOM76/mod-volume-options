@@ -25,10 +25,10 @@ dependencies {
 
     modImplementation "net.pitan76:mcpitanlib-fabric+${rootProject.mcpitanlib_version}"
 
-    modImplementation 'RebornCore:RebornCore-1.18:5.2.1'
-    modImplementation 'TechReborn:TechReborn-1.18:5.2.1'
+    //modImplementation 'RebornCore:RebornCore-1.18:5.2.1'
+    //modImplementation 'TechReborn:TechReborn-1.18:5.2.1'
 
-    modImplementation "com.terraformersmc:modmenu:3.2.5"
+    modImplementation "com.terraformersmc:modmenu:7.2.2"
 }
 
 processResources {

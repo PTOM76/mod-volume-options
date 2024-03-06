@@ -35,7 +35,7 @@ subprojects {
         modImplementation "net.pitan76:mcpitanlib-common+${rootProject.mcpitanlib_version}"
     }
 
-    if (name in "fabric,forge,neoforge".split(",")) {
+    if (name in "fabric,forge".split(",")) {
         var modLoader = name
 
         if (System.getenv("CURSEFORGE_TOKEN") != null) {
