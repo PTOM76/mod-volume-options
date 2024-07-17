@@ -1,11 +1,13 @@
 package net.pitan76.mvo76.screen;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.OptionListWidget;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import net.pitan76.mcpitanlib.api.client.SimpleScreen;
+import net.pitan76.mcpitanlib.api.client.SimpleOptionsScreen;
+import net.pitan76.mcpitanlib.api.client.gui.widget.SimpleListWidget;
 import net.pitan76.mcpitanlib.api.client.render.handledscreen.RenderArgs;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
@@ -14,22 +16,27 @@ import net.pitan76.mvo76.*;
 import java.io.IOException;
 import java.util.List;
 
-public class ConfigScreen extends SimpleScreen {
+public class ConfigScreen extends SimpleOptionsScreen {
     protected final Screen parent;
-    protected OptionListWidget listWidget;
+    protected SimpleListWidget listWidget;
 
-    public ConfigScreen(Screen parent, Text title) {
-        super(title);
+    public ConfigScreen(Screen parent, Text title, GameOptions gameOptions) {
+        super(title, parent, gameOptions);
         this.parent = parent;
     }
 
+    public ConfigScreen(Screen parent, GameOptions gameOptions) {
+        this(parent, TextUtil.translatable("screen.mvo.options.title"), gameOptions);
+    }
+
     public ConfigScreen(Screen parent) {
-        this(parent, TextUtil.translatable("screen.mvo.options.title"));
+        this(parent, MinecraftClient.getInstance().options);
+
     }
 
     @Override
     public void initOverride() {
-        listWidget = new OptionListWidget(client, width, height - 64, 32, 25);
+        listWidget = new SimpleListWidget(client, width, height - 64, 32, 25);
         addDrawableChild_compatibility(listWidget);
 
         List<ModInfo> modList = Platform.getModInfoList();
@@ -50,7 +57,7 @@ public class ConfigScreen extends SimpleScreen {
                     Config.setVolume(nameSpace, d));
             option.setValue(Config.getVolume(nameSpace));
 
-            listWidget.addSingleOptionEntry(option);
+            listWidget.add(option.createWidget(gameOptions));
         }
 
         addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {

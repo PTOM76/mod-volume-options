@@ -21,12 +21,12 @@ public abstract class SoundOptionsScreenMixin extends GameOptionsScreen {
         super(parent, gameOptions, title);
     }
 
-    @Inject(method = "init", at = @At("TAIL"))
+    @Inject(method = "addOptions", at = @At("TAIL"))
     private void mvo76$init(CallbackInfo ci) {
         if (!Platform.isModLoaded("mcpitanlib")) return;
         SoundOptionsScreen screen = (SoundOptionsScreen) (Object) this;
         addDrawableChild(ScreenUtil.createButtonWidget(screen.width / 2 + 70, 7, 120, 20, TextUtil.translatable("screen.mvo.options.title").append("..."), (button) -> {
-            MinecraftClient.getInstance().setScreen(new ConfigScreen(MinecraftClient.getInstance().currentScreen));
+            MinecraftClient.getInstance().setScreen(new ConfigScreen(MinecraftClient.getInstance().currentScreen, gameOptions));
         }));
     }
 }
