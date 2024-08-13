@@ -11,7 +11,8 @@ import java.util.Map;
 public class Config {
     // Volume rate for each mod
     public static Map<String, Double> volumeMap = new HashMap<>();
-    public static File configFile = new File(Platform.getConfigDir().toFile(), "mod_volume_controller.json");
+    public static File configFile = new File(Platform.getConfigDir().toFile(), "mod_volume_options.json");
+    public static File oldConfigFile = new File(Platform.getConfigDir().toFile(), "mod_volume_controller.json");
 
     public static void setVolume(String modid, double volume) {
         volumeMap.put(modid, volume);
@@ -50,6 +51,16 @@ public class Config {
             String json = new String(Files.readAllBytes(configFile.toPath()));
             volumeMap = gson.fromJson(json, volumeMap.getClass());
         } else {
+
+            // Load old config file
+            if (oldConfigFile.exists()) {
+                Gson gson = new Gson();
+                String json = new String(Files.readAllBytes(oldConfigFile.toPath()));
+                volumeMap = gson.fromJson(json, volumeMap.getClass());
+                save();
+                oldConfigFile.delete();
+            }
+
             if (!configFile.getParentFile().exists())
                 configFile.getParentFile().mkdirs();
 
