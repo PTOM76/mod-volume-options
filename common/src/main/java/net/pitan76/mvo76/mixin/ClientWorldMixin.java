@@ -5,6 +5,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.pitan76.mvo76.Config;
+import net.pitan76.mvo76.ModVolumeOptions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -26,11 +27,14 @@ public abstract class ClientWorldMixin {
             mvo76$cancelSound = true;
             return;
         }
-        ci.cancel();
-        float newVolume = volume;
 
         Identifier id = event.getId();
         String namespace = id.getNamespace();
+        if (ModVolumeOptions.disabledModIds.contains(namespace)) return;
+
+        ci.cancel();
+        float newVolume = volume;
+
         if (!Config.hasVolume(namespace)) return;
         newVolume = ((float) Config.getVolume(namespace)) * volume;
 
