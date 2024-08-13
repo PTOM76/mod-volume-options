@@ -54,6 +54,9 @@ subprojects {
                     if (modLoader == "forge") {
                         addGameVersion "Forge"
                     }
+                    if (modLoader == "neoforge") {
+                        addGameVersion "NeoForge"
+                    }
                     addGameVersion '1.20.6'
                     addGameVersion '1.21'
                     relations {
