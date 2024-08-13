@@ -2,7 +2,7 @@ import com.modrinth.minotaur.dependencies.ModDependency
 
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
     id 'com.matthewprenger.cursegradle' version '1.+'
     id "com.modrinth.minotaur" version "2.+"
 }
@@ -51,24 +51,19 @@ subprojects {
                     if (modLoader == "forge") {
                         addGameVersion "Forge"
                     }
-                    if (modLoader == "neoforge") {
-                        addGameVersion "NeoForge"
-                        addGameVersion '1.20.3'
-                        addGameVersion '1.20.4'
-                    } else {
-                        addGameVersion '1.16.4'
-                        addGameVersion '1.16.5'
-                        addGameVersion '1.18'
-                        addGameVersion '1.18.1'
-                        addGameVersion '1.18.2'
-                        addGameVersion '1.19'
-                        addGameVersion '1.19.1'
-                        addGameVersion '1.19.2'
-                        addGameVersion '1.20'
-                        addGameVersion '1.20.1'
-                        addGameVersion '1.20.3'
-                        addGameVersion '1.20.4'
-                    }
+
+                    addGameVersion '1.16.4'
+                    addGameVersion '1.16.5'
+                    addGameVersion '1.18'
+                    addGameVersion '1.18.1'
+                    addGameVersion '1.18.2'
+                    addGameVersion '1.19'
+                    addGameVersion '1.19.1'
+                    addGameVersion '1.19.2'
+                    addGameVersion '1.20'
+                    addGameVersion '1.20.1'
+                    addGameVersion '1.20.3'
+                    addGameVersion '1.20.4'
 
                     relations {
                         if (modLoader == "fabric") {
@@ -91,11 +86,7 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'SNHwFOKm'
                 versionNumber = project.mod_version + "-" + modLoader
-                if (modLoader == "neoforge") {
-                    gameVersions = ['1.20.2', '1.20.3', '1.20.4']
-                } else {
-                    gameVersions = ['1.16.4', '1.16.5', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.20', '1.20.1', '1.20.3', '1.20.4']
-                }
+                gameVersions = ['1.16.4', '1.16.5', '1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.20', '1.20.1', '1.20.3', '1.20.4']
                 versionType = 'release'
                 uploadFile = tasks.remapJar
                 changelog = ''
@@ -130,15 +121,8 @@ allprojects {
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release = 8
-        if (project.name == "neoforge") {
-            options.release = 17
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
-        } else {
-            options.release = 8
-            sourceCompatibility = JavaVersion.VERSION_1_8
-            targetCompatibility = JavaVersion.VERSION_1_8
-        }
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     java {
