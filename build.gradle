@@ -57,8 +57,8 @@ subprojects {
                     if (modLoader == "neoforge") {
                         addGameVersion "NeoForge"
                     }
-                    addGameVersion '1.20.6'
                     addGameVersion '1.21'
+                    addGameVersion '1.21.1'
                     relations {
                         if (modLoader == "fabric") {
                             requiredDependency "fabric-api"
@@ -80,7 +80,7 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'SNHwFOKm'
                 versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['1.20.6', '1.21']
+                gameVersions = ['1.21', '1.21.1']
                 versionType = 'release'
                 uploadFile = tasks.remapJar
                 changelog = ''
