@@ -32,10 +32,9 @@ public abstract class ClientWorldMixin {
         Identifier id = event.getId();
         String namespace = id.getNamespace();
         if (ModVolumeOptions.disabledModIds.contains(namespace)) return;
+        if (!Config.hasVolume(namespace)) return;
 
         ci.cancel();
-
-        if (!Config.hasVolume(namespace)) return;
         float newVolume = ((float) Config.getVolume(namespace)) * volume;
 
         mvo76$cancelSound = false;
