@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class MVOCommand extends LiteralCommand {
     @Override
-    public void execute(ServerCommandEvent event) {
+    public void execute(ServerCommandEvent e) {
 
     }
 
@@ -23,26 +23,26 @@ public class MVOCommand extends LiteralCommand {
     public void init(CommandSettings settings) {
         addArgumentCommand("reload", new LiteralCommand() {
             @Override
-            public void execute(ServerCommandEvent event) {
+            public void execute(ServerCommandEvent e) {
                 try {
                     Config.load();
-                    event.sendSuccess(TextUtil.literal("Config file reloaded"), false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    event.sendFailure(TextUtil.literal("Failed to reload config file"));
+                    e.sendSuccess(TextUtil.literal("Config file reloaded"), false);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    e.sendFailure(TextUtil.literal("Failed to reload config file"));
                 }
             }
         });
 
         addArgumentCommand("save", new LiteralCommand() {
             @Override
-            public void execute(ServerCommandEvent event) {
+            public void execute(ServerCommandEvent e) {
                 try {
                     Config.save();
-                    event.sendSuccess(TextUtil.literal("Config file saved"), false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    event.sendFailure(TextUtil.literal("Failed to save config file"));
+                    e.sendSuccess(TextUtil.literal("Config file saved"), false);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    e.sendFailure(TextUtil.literal("Failed to save config file"));
                 }
             }
         });
@@ -65,17 +65,17 @@ public class MVOCommand extends LiteralCommand {
                             }
 
                             @Override
-                            public void execute(DoubleCommandEvent event) {
-                                String modid = StringArgumentType.getString(event.context, "modid");
-                                Double value = event.getValue();
+                            public void execute(DoubleCommandEvent e) {
+                                String modid = StringArgumentType.getString(e.context, "modid");
+                                Double value = e.getValue();
                                 Config.setVolume(modid, value);
-                                event.sendSuccess(TextUtil.literal("Set volume of " + modid + " to " + value), false);
+                                e.sendSuccess(TextUtil.literal("Set volume of " + modid + " to " + value), false);
                             }
                         });
                     }
 
                     @Override
-                    public void execute(StringCommandEvent event) {
+                    public void execute(StringCommandEvent e) {
                     }
 
                     @Override
@@ -91,10 +91,10 @@ public class MVOCommand extends LiteralCommand {
             public void init(CommandSettings settings) {
                 addArgumentCommand("modid", new StringCommand() {
                     @Override
-                    public void execute(StringCommandEvent event) {
-                        String modid = StringArgumentType.getString(event.context, "modid");
+                    public void execute(StringCommandEvent e) {
+                        String modid = StringArgumentType.getString(e.context, "modid");
                         double volume = Config.getVolume(modid);
-                        event.sendSuccess(TextUtil.literal("Volume of " + modid + " is " + volume), false);
+                        e.sendSuccess(TextUtil.literal("Volume of " + modid + " is " + volume), false);
                     }
 
                     @Override
@@ -105,7 +105,7 @@ public class MVOCommand extends LiteralCommand {
             }
 
             @Override
-            public void execute(ServerCommandEvent event) {
+            public void execute(ServerCommandEvent e) {
 
             }
         });

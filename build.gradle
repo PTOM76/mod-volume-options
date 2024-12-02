@@ -46,7 +46,7 @@ subprojects {
                 apiKey = System.getenv("CURSEFORGE_TOKEN")
                 project {
                     id = '981874'
-                    changelog = ''
+                    changelog = 'update to 1.21.3'
                     releaseType = 'release'
                     if (modLoader == "fabric") {
                         addGameVersion "Fabric"
@@ -57,8 +57,8 @@ subprojects {
                     if (modLoader == "neoforge") {
                         addGameVersion "NeoForge"
                     }
-                    addGameVersion '1.21'
-                    addGameVersion '1.21.1'
+                    addGameVersion '1.21.2'
+                    addGameVersion '1.21.3'
                     relations {
                         if (modLoader == "fabric") {
                             requiredDependency "fabric-api"
@@ -80,10 +80,10 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'SNHwFOKm'
                 versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['1.21', '1.21.1']
+                gameVersions = ['1.21.2', '1.21.3']
                 versionType = 'release'
                 uploadFile = tasks.remapJar
-                changelog = ''
+                changelog = 'update to 1.21.3'
                 loaders = [modLoader]
                 dependencies {
                     if (modLoader == "fabric") {
@@ -114,16 +114,9 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
-        options.release = 8
-        if (project.name == "neoforge") {
-            options.release = 21
-            sourceCompatibility = JavaVersion.VERSION_21
-            targetCompatibility = JavaVersion.VERSION_21
-        } else {
-            options.release = 8
-            sourceCompatibility = JavaVersion.VERSION_1_8
-            targetCompatibility = JavaVersion.VERSION_1_8
-        }
+        options.release = 21
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     java {
