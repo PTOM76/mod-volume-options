@@ -27,8 +27,7 @@ public abstract class SoundOptionsScreenMixin extends GameOptionsScreen {
 
         SoundOptionsScreen screen = (SoundOptionsScreen) (Object) this;
         String btnText = TextUtil.txt2str(TextUtil.translatable("screen.mvo.options.title")) + "...";
-        addDrawableChild(ScreenUtil.createButtonWidget(screen.width / 2 + 70, 7, 120, 20, TextUtil.literal(btnText), (button) -> {
-            ClientUtil.setScreen(new ModVolumeOptionsScreen(ClientUtil.getScreen()));
-        }));
+        addDrawableChild(ScreenUtil.createButtonWidget(screen.width / 2 + 70, 7, 120, 20, TextUtil.literal(btnText), (button) ->
+                ClientUtil.setScreen(new ModVolumeOptionsScreen(ClientUtil.getScreen()))));
     }
 }
