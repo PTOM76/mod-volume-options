@@ -32,7 +32,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void initOverride() {
-        listWidget = new SimpleListWidget(MinecraftClient.getInstance(), width, height, 32, 25);
+        listWidget = new SimpleListWidget(MinecraftClient.getInstance(), width, height - 64, 32, 25);
 
         List<ModInfo> modList = Platform.getModInfoList();
         if (modList == null) return;
@@ -51,12 +51,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
         }
 
         addSelectableChild_compatibility(listWidget);
-        addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
-            MinecraftClient client = MinecraftClient.getInstance();
-            if (client == null) return;
-            client.options.write();
-            ClientUtil.setScreen(parent);
-        }));
+        addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> closeOverride()));
     }
 
     private static Text getPercentValueText(Text prefix, double value) {
@@ -69,7 +64,11 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void removedOverride() {
-        if (client == null) return;
+        if (client == null) {
+            client = MinecraftClient.getInstance();
+            if (client == null) return;
+        }
+
         try {
             Config.save();
         } catch (IOException e) {
@@ -81,19 +80,29 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
     public void closeOverride() {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client == null) return;
+        client.options.write();
         ClientUtil.setScreen(this.parent);
     }
 
     @Override
     public void render(RenderArgs args) {
-        this.renderBackground(args);
+        super.render(args);
         this.listWidget.render(args);
         ScreenUtil.RendererUtil.drawText(textRenderer, args.drawObjectDM, title, width / 2 - ScreenUtil.getWidth(title) / 2, 20, 16777215);
-        super.render(args);
     }
 
     @Override
     public void renderBackground(RenderArgs args) {
-        renderBackgroundTexture(new RenderBackgroundTextureArgs(args));
+        if (getCompatBackgroundTexture() != null) {
+            renderBackgroundTexture(new RenderBackgroundTextureArgs(args));
+            return;
+        }
+
+        super.renderBackground(args);
+    }
+
+    public void renderBackgroundTexture(RenderBackgroundTextureArgs args) {
+        if (getCompatBackgroundTexture() == null) return;
+        super.renderBackgroundTexture(args);
     }
 }
