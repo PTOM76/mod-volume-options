@@ -32,7 +32,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void initOverride() {
-        listWidget = new SimpleListWidget(MinecraftClient.getInstance(), width, height - 64, 32, 25);
+        listWidget = new SimpleListWidget(MinecraftClient.getInstance(), width, height, 32, 25);
 
         List<ModInfo> modList = Platform.getModInfoList();
         if (modList == null) return;
@@ -86,23 +86,14 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void render(RenderArgs args) {
-        super.render(args);
+        this.renderBackground(args);
         this.listWidget.render(args);
         ScreenUtil.RendererUtil.drawText(textRenderer, args.drawObjectDM, title, width / 2 - ScreenUtil.getWidth(title) / 2, 20, 16777215);
+        super.render(args);
     }
 
     @Override
     public void renderBackground(RenderArgs args) {
-        if (getCompatBackgroundTexture() != null) {
-            renderBackgroundTexture(new RenderBackgroundTextureArgs(args));
-            return;
-        }
-
-        super.renderBackground(args);
-    }
-
-    public void renderBackgroundTexture(RenderBackgroundTextureArgs args) {
-        if (getCompatBackgroundTexture() == null) return;
-        super.renderBackgroundTexture(args);
+        renderBackgroundTexture(new RenderBackgroundTextureArgs(args));
     }
 }
