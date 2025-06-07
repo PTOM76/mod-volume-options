@@ -29,7 +29,7 @@ public abstract class ClientWorldMixin {
 
         String namespace;
         if (ModVolumeOptions.isMCPItanLibLoaded) {
-            namespace = net.pitan76.mcpitanlib.api.util.SoundEventUtil.getId(event).getNamespace();
+            namespace = net.pitan76.mcpitanlib.api.util.SoundEventUtil.getCompatId(event).getNamespace();
         } else {
             namespace = event.id().getNamespace();
         }

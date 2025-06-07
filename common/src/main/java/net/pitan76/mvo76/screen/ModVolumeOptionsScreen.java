@@ -33,7 +33,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void initOverride() {
-        listWidget = new SimpleListWidget(MinecraftClient.getInstance(), width, height - 64, 32, 25);
+        listWidget = new SimpleListWidget(ClientUtil.getClient(), width, height - 64, 32, 25);
 
         List<ModInfo> modList = Platform.getModInfoList();
         if (modList == null) return;
@@ -53,9 +53,8 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
         addSelectableChild_compatibility(listWidget);
 
-        ButtonWidget widget = ScreenUtil.createButtonWidget(width / 2 - 100, height - 26, 200, 20, ScreenTexts.DONE, (button) -> {
-            closeOverride();
-        });
+        ButtonWidget widget = ScreenUtil.createButtonWidget(width / 2 - 100, height - 26, 200, 20,
+                ScreenTexts.DONE, (button) -> closeOverride());
         addDrawableChild_compatibility(widget);
     }
 
@@ -70,7 +69,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
     @Override
     public void removedOverride() {
         if (client == null) {
-            client = MinecraftClient.getInstance();
+            client = ClientUtil.getClient();
             if (client == null) return;
         }
 
@@ -83,7 +82,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void closeOverride() {
-        MinecraftClient client = MinecraftClient.getInstance();
+        MinecraftClient client = ClientUtil.getClient();
         if (client == null) return;
         client.options.write();
         ClientUtil.setScreen(this.parent);
