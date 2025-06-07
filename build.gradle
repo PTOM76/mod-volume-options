@@ -46,7 +46,7 @@ subprojects {
                 apiKey = System.getenv("CURSEFORGE_TOKEN")
                 project {
                     id = '981874'
-                    changelog = 'update to 1.21.3'
+                    changelog = 'update to 1.21.5'
                     releaseType = 'release'
                     if (modLoader == "fabric") {
                         addGameVersion "Fabric"
