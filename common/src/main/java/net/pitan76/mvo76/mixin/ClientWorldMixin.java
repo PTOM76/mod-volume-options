@@ -22,6 +22,7 @@ public abstract class ClientWorldMixin {
     @Unique
     private static boolean mvo76$cancelSound = true;
 
+    // 1.21.1ではマッピング前の内部のメソッド名が変わっているため、別でビルドしなければならない
     @Inject(method = "playSound(DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FFZ)V", at = @At("HEAD"), cancellable = true)
     public void mvo76$playSound(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean useDistance, CallbackInfo ci) {
         if (!mvo76$cancelSound) {
