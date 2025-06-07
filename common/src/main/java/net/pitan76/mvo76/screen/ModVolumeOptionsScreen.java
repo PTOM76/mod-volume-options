@@ -9,6 +9,7 @@ import net.pitan76.mcpitanlib.api.client.gui.widget.SimpleListWidget;
 import net.pitan76.mcpitanlib.api.client.gui.widget.SimpleSliderWidget;
 import net.pitan76.mcpitanlib.api.client.render.handledscreen.RenderArgs;
 import net.pitan76.mcpitanlib.api.client.render.screen.RenderBackgroundTextureArgs;
+import net.pitan76.mcpitanlib.api.util.CompatIdentifier;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
 import net.pitan76.mcpitanlib.api.util.client.ClientUtil;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
@@ -90,6 +91,11 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
         this.listWidget.render(args);
         ScreenUtil.RendererUtil.drawText(textRenderer, args.drawObjectDM, title, width / 2 - ScreenUtil.getWidth(title) / 2, 20, 16777215);
         super.render(args);
+    }
+
+    @Override
+    public CompatIdentifier getCompatBackgroundTexture() {
+        return super.getCompatBackgroundTexture();
     }
 
     @Override
