@@ -52,12 +52,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
         }
 
         addSelectableChild_compatibility(listWidget);
-        addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> {
-            MinecraftClient client = MinecraftClient.getInstance();
-            if (client == null) return;
-            client.options.write();
-            ClientUtil.setScreen(parent);
-        }));
+        addDrawableChild_compatibility(ScreenUtil.createButtonWidget(width / 2 - 100, height - 27, 200, 20, ScreenTexts.DONE, (button) -> closeOverride()));
     }
 
     private static Text getPercentValueText(Text prefix, double value) {
@@ -82,6 +77,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
     public void closeOverride() {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client == null) return;
+        client.options.write();
         ClientUtil.setScreen(this.parent);
     }
 
