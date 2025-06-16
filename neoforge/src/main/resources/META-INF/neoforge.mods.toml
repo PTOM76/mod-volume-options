@@ -28,5 +28,12 @@ versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
 
+[[dependencies.mvo76]]
+modId = "mcpitanlib"
+type = "optional"
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
+
 [[mixins]]
 config = "mvo76-common.mixins.json"
