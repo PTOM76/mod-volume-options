@@ -64,3 +64,10 @@ mandatory = true
 versionRange = "[0,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.mvo76]]
+modId = "mcpitanlib"
+mandatory = false
+versionRange = "[0,)"
+ordering = "NONE"
+side = "BOTH"
