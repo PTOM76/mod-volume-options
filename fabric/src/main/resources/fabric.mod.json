@@ -29,5 +29,8 @@
   "depends": {
     "fabricloader": "*",
     "minecraft": "*"
+  },
+  "recommends": {
+    "mcpitanlib": "*"
   }
 }
