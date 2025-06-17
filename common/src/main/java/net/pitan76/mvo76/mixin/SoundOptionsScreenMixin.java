@@ -5,10 +5,8 @@ import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.screen.option.SoundOptionsScreen;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
-import net.pitan76.mcpitanlib.api.util.TextUtil;
-import net.pitan76.mcpitanlib.api.util.client.ClientUtil;
-import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
-import net.pitan76.mvo76.Platform;
+import net.pitan76.mvo76.ModVolumeOptions;
+import net.pitan76.mvo76.addon.mpl.MPLUtil;
 import net.pitan76.mvo76.screen.ModVolumeOptionsScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,10 +21,11 @@ public abstract class SoundOptionsScreenMixin extends GameOptionsScreen {
 
     @Inject(method = "addOptions", at = @At("TAIL"))
     private void mvo76$init(CallbackInfo ci) {
-        if (!Platform.isModLoaded("mcpitanlib")) return;
+        if (!ModVolumeOptions.isMCPItanLibLoaded) return;
+
         SoundOptionsScreen screen = (SoundOptionsScreen) (Object) this;
-        String btnText = TextUtil.txt2str(TextUtil.translatable("screen.mvo.options.title")) + "...";
-        addDrawableChild(ScreenUtil.createButtonWidget(screen.width / 2 + 70, 7, 120, 20, TextUtil.literal(btnText), (button) ->
-                ClientUtil.setScreen(new ModVolumeOptionsScreen(ClientUtil.getScreen()))));
+        String btnText = MPLUtil.txt2str_TextUtil(MPLUtil.translatable_TextUtil("screen.mvo.options.title")) + "...";
+        addDrawableChild(MPLUtil.createButtonWidget_ScreenUtil(screen.width / 2 + 70, 7, 120, 20, MPLUtil.literal_TextUtil(btnText), (button) ->
+                MPLUtil.setScreen_ClientUtil(new ModVolumeOptionsScreen(MPLUtil.getScreen_ClientUtil()))));
     }
 }
