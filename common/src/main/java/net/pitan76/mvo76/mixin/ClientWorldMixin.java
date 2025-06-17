@@ -5,6 +5,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.pitan76.mvo76.Config;
 import net.pitan76.mvo76.ModVolumeOptions;
+import net.pitan76.mvo76.addon.mpl.MPLUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,7 +30,7 @@ public abstract class ClientWorldMixin {
 
         String namespace;
         if (ModVolumeOptions.isMCPItanLibLoaded) {
-            namespace = net.pitan76.mcpitanlib.api.util.SoundEventUtil.getCompatId(event).getNamespace();
+            namespace = MPLUtil.getSoundNamespace_MPLUtil(event);
         } else {
             namespace = event.id().getNamespace();
         }
