@@ -2,7 +2,9 @@ package net.pitan76.mvo76.addon.mpl;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
+import net.pitan76.mcpitanlib.api.util.SoundEventUtil;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
 import net.pitan76.mcpitanlib.api.util.client.ClientUtil;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
@@ -30,5 +32,9 @@ public class MPLUtil {
 
     public static ButtonWidget createButtonWidget_ScreenUtil(int x, int y, int width, int height, Text message, ButtonWidget.PressAction onPress) {
         return ScreenUtil.createButtonWidget(x, y, width, height, message, onPress);
+    }
+
+    public static String getSoundNamespace_MPLUtil(SoundEvent event) {
+        return SoundEventUtil.getCompatId(event).getNamespace();
     }
 }
