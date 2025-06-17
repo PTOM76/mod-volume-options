@@ -8,6 +8,7 @@ import net.pitan76.mcpitanlib.api.util.SoundEventUtil;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
 import net.pitan76.mcpitanlib.api.util.client.ClientUtil;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
+import net.pitan76.mvo76.screen.ModVolumeOptionsScreen;
 
 public class MPLUtil {
     public static String txt2str_TextUtil(Text text) {
@@ -24,6 +25,10 @@ public class MPLUtil {
 
     public static void setScreen_ClientUtil(Screen screen) {
         ClientUtil.setScreen(screen);
+    }
+
+    public static void setScreenModVolumeOptionsScreen() {
+        setScreen_ClientUtil(new ModVolumeOptionsScreen(MPLUtil.getScreen_ClientUtil()));
     }
 
     public static Screen getScreen_ClientUtil() {
