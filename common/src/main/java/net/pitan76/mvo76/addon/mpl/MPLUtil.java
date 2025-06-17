@@ -8,6 +8,7 @@ import net.pitan76.mcpitanlib.api.util.SoundEventUtil;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
 import net.pitan76.mcpitanlib.api.util.client.ClientUtil;
 import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
+import net.pitan76.mvo76.screen.ModVolumeOptionsScreen;
 
 public class MPLUtil {
     public static String txt2str_TextUtil(Text text) {
@@ -26,6 +27,10 @@ public class MPLUtil {
         ClientUtil.setScreen(screen);
     }
 
+    public static void setScreenModVolumeOptionsScreen() {
+        setScreen_ClientUtil(new ModVolumeOptionsScreen(MPLUtil.getScreen_ClientUtil()));
+    }
+
     public static Screen getScreen_ClientUtil() {
         return ClientUtil.getScreen();
     }
@@ -33,7 +38,6 @@ public class MPLUtil {
     public static ButtonWidget createButtonWidget_ScreenUtil(int x, int y, int width, int height, Text message, ButtonWidget.PressAction onPress) {
         return ScreenUtil.createButtonWidget(x, y, width, height, message, onPress);
     }
-
     public static String getSoundNamespace_MPLUtil(SoundEvent event) {
         return SoundEventUtil.getCompatId(event).getNamespace();
     }

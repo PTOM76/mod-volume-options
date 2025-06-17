@@ -7,7 +7,6 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.pitan76.mvo76.ModVolumeOptions;
 import net.pitan76.mvo76.addon.mpl.MPLUtil;
-import net.pitan76.mvo76.screen.ModVolumeOptionsScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +24,7 @@ public abstract class SoundOptionsScreenMixin extends GameOptionsScreen {
 
         SoundOptionsScreen screen = (SoundOptionsScreen) (Object) this;
         String btnText = MPLUtil.txt2str_TextUtil(MPLUtil.translatable_TextUtil("screen.mvo.options.title")) + "...";
-        addDrawableChild(MPLUtil.createButtonWidget_ScreenUtil(screen.width / 2 + 70, 7, 120, 20, MPLUtil.literal_TextUtil(btnText), (button) ->
-                MPLUtil.setScreen_ClientUtil(new ModVolumeOptionsScreen(MPLUtil.getScreen_ClientUtil()))));
+        addDrawableChild(MPLUtil.createButtonWidget_ScreenUtil(screen.width / 2 + 70, 7, 120, 20, MPLUtil.literal_TextUtil(btnText),
+                (button) -> MPLUtil.setScreenModVolumeOptionsScreen()));
     }
 }
