@@ -35,7 +35,7 @@ subprojects {
             it.mappings file("../mappings/121-1fix.tiny")
         }
 
-        modImplementation "net.pitan76:mcpitanlib-common+${rootProject.mcpitanlib_version}"
+        modImplementation "net.pitan76:mcpitanlib-common-${rootProject.mcpitanlib_version}"
     }
 
     if (name in "fabric,neoforge".split(",")) {

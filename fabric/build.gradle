@@ -24,7 +24,7 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
-    modImplementation "net.pitan76:mcpitanlib-fabric+${rootProject.mcpitanlib_version}"
+    modImplementation "net.pitan76:mcpitanlib-fabric-${rootProject.mcpitanlib_version}"
 
     modImplementation "com.terraformersmc:modmenu:11.0.1"
 }
