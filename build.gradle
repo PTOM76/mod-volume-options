@@ -46,7 +46,7 @@ subprojects {
                 apiKey = System.getenv("CURSEFORGE_TOKEN")
                 project {
                     id = '981874'
-                    changelog = 'update to 1.21.5'
+                    changelog = 'update to 1.21.11'
                     releaseType = 'release'
                     if (modLoader == "fabric") {
                         addGameVersion "Fabric"
@@ -57,8 +57,7 @@ subprojects {
                     if (modLoader == "neoforge") {
                         addGameVersion "NeoForge"
                     }
-                    addGameVersion '1.21.4'
-                    addGameVersion '1.21.5'
+                    addGameVersion '1.21.11'
                     relations {
                         if (modLoader == "fabric") {
                             requiredDependency "fabric-api"
@@ -80,10 +79,10 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'SNHwFOKm'
                 versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['1.21.4', '1.21.5']
+                gameVersions = ['1.21.11']
                 versionType = 'release'
                 uploadFile = tasks.remapJar
-                changelog = 'update to 1.21.5'
+                changelog = 'update to 1.21.11'
                 loaders = [modLoader]
                 dependencies {
                     if (modLoader == "fabric") {
