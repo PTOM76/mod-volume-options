@@ -20,7 +20,7 @@ public abstract class SoundOptionsScreenMixin extends GameOptionsScreen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void mvo76$init(CallbackInfo ci) {
-        if (!ModVolumeOptions.isMCPItanLibLoaded) return;
+        if (!ModVolumeOptions.isMCPitanLibLoaded) return;
 
         SoundOptionsScreen screen = (SoundOptionsScreen) (Object) this;
         String btnText = MPLUtil.txt2str_TextUtil(MPLUtil.translatable_TextUtil("screen.mvo.options.title")) + "...";

@@ -11,13 +11,13 @@ public class ModVolumeOptions {
 
     public static List<String> disabledModIds = new ArrayList<>();
 
-    public static boolean isMCPItanLibLoaded = false;
+    public static boolean isMCPitanLibLoaded = false;
 
     public static void init() {
         Config.init();
 
         if (Platform.isModLoaded("mcpitanlib")) {
-            isMCPItanLibLoaded = true;
+            isMCPitanLibLoaded = true;
             MCPitanLibAddon.init();
         }
         initDisabledModIds();
