@@ -29,7 +29,7 @@ public abstract class ClientWorldMixin {
         }
 
         String namespace;
-        if (ModVolumeOptions.isMCPItanLibLoaded) {
+        if (ModVolumeOptions.isMCPitanLibLoaded) {
             namespace = MPLUtil.getSoundNamespace_MPLUtil(event);
         } else {
             namespace = event.id().getNamespace();
