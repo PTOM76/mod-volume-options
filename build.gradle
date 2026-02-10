@@ -59,6 +59,12 @@ subprojects {
                     }
                     addGameVersion '1.21.4'
                     addGameVersion '1.21.5'
+                    addGameVersion '1.21.6'
+                    addGameVersion '1.21.7'
+                    addGameVersion '1.21.8'
+                    addGameVersion '1.21.9'
+                    addGameVersion '1.21.10'
+                    addGameVersion '1.21.11'
                     relations {
                         if (modLoader == "fabric") {
                             requiredDependency "fabric-api"
@@ -80,7 +86,7 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'SNHwFOKm'
                 versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['1.21.4', '1.21.5']
+                gameVersions = ['1.21.4', '1.21.5', '1.21.6', '1.21.7', '1.21.8', '1.21.9', '1.21.10', '1.21.11']
                 versionType = 'release'
                 uploadFile = tasks.remapJar
                 changelog = 'update to 1.21.5'
