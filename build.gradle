@@ -9,7 +9,6 @@ architectury {
     minecraft = rootProject.minecraft_version
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
 
 subprojects {
     apply plugin: "dev.architectury.loom-no-remap"
@@ -36,55 +35,60 @@ subprojects {
     if (name in "fabric,neoforge".split(",")) {
         var modLoader = name
 
-        if (System.getenv("CURSEFORGE_TOKEN") != null) {
-            curseforge {
-                apiKey = System.getenv("CURSEFORGE_TOKEN")
-                project {
-                    id = '981874'
-                    changelog = 'update to 21.6'
-                    releaseType = 'release'
-                    if (modLoader == "fabric") {
-                        addGameVersion "Fabric"
-                    }
-                    if (modLoader == "forge") {
-                        addGameVersion "Forge"
-                    }
-                    if (modLoader == "neoforge") {
-                        addGameVersion "NeoForge"
-                    }
-                    addGameVersion '26.1'
-                    addGameVersion '26.1.1'
-                    relations {
-                        if (modLoader == "fabric") {
-                            requiredDependency "fabric-api"
-                        }
-                        requiredDependency 'mcpitanlibarch'
-                    }
+        // Configure publishing artifacts only when Shadow plugin (and shadowJar task) is present.
+        pluginManager.withPlugin("com.github.johnrengelman.shadow") {
+            def shadowJarTask = tasks.named("shadowJar").get()
 
-                    mainArtifact(tasks.shadowJar)
+            if (System.getenv("CURSEFORGE_TOKEN") != null) {
+                curseforge {
+                    apiKey = System.getenv("CURSEFORGE_TOKEN")
+                    project {
+                        id = '981874'
+                        changelog = 'update to 21.6'
+                        releaseType = 'release'
+                        if (modLoader == "fabric") {
+                            addGameVersion "Fabric"
+                        }
+                        if (modLoader == "forge") {
+                            addGameVersion "Forge"
+                        }
+                        if (modLoader == "neoforge") {
+                            addGameVersion "NeoForge"
+                        }
+                        addGameVersion '26.1'
+                        addGameVersion '26.1.1'
+                        relations {
+                            if (modLoader == "fabric") {
+                                requiredDependency "fabric-api"
+                            }
+                            requiredDependency 'mcpitanlibarch'
+                        }
+
+                        mainArtifact(shadowJarTask)
+                    }
+                    options {
+                        forgeGradleIntegration = false
+                    }
                 }
-                options {
-                    forgeGradleIntegration = false
-                }
+
             }
 
-        }
-
-        if (System.getenv("MODRINTH_TOKEN") != null) {
-            modrinth {
-                token = System.getenv("MODRINTH_TOKEN")
-                projectId = 'SNHwFOKm'
-                versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['26.1', '26.1.1']
-                versionType = 'release'
-                uploadFile = tasks.shadowJar
-                changelog = 'update to 21.6'
-                loaders = [modLoader]
-                dependencies {
-                    if (modLoader == "fabric") {
-                        required.project "P7dR8mSH" // Fabric API
+            if (System.getenv("MODRINTH_TOKEN") != null) {
+                modrinth {
+                    token = System.getenv("MODRINTH_TOKEN")
+                    projectId = 'SNHwFOKm'
+                    versionNumber = project.mod_version + "-" + modLoader
+                    gameVersions = ['26.1', '26.1.1']
+                    versionType = 'release'
+                    uploadFile = shadowJarTask
+                    changelog = 'update to 21.6'
+                    loaders = [modLoader]
+                    dependencies {
+                        if (modLoader == "fabric") {
+                            required.project "P7dR8mSH" // Fabric API
+                        }
+                        required.project "uNRoUnGT" // MCPitanLib
                     }
-                    required.project "uNRoUnGT" // MCPitanLib
                 }
             }
         }
