@@ -35,7 +35,7 @@ dependencies {
 
     implementation "net.pitan76:mcpitanlib-fabric-${rootProject.mcpitanlib_version}"
 
-    implementation "com.terraformersmc:modmenu:11.0.1"
+    implementation "com.terraformersmc:modmenu:18.0.0-alpha.8"
 }
 
 processResources {
