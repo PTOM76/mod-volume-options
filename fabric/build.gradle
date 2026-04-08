@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
 architectury {
@@ -18,7 +18,7 @@ configurations {
     }
 }
 
-project.archivesBaseName = project.archivesBaseName + "-fabric"
+project.base.archivesName = project.base.archivesName.get() + "-fabric"
 
 dependencies {
     implementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"

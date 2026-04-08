@@ -29,10 +29,10 @@ subprojects {
 
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        implementation "net.pitan76:mcpitanlib-common-${rootProject.mcpitanlib_version}"
+        implementation "net.pitan76:mcpitanlib-fabric-${rootProject.mcpitanlib_version}"
     }
 
-    if (name in "fabric,neoforge".split(",")) {
+    if (name in "fabric".split(",")) {
         var modLoader = name
 
         // Configure publishing artifacts only when Shadow plugin (and shadowJar task) is present.
