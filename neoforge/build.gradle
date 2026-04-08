@@ -20,10 +20,10 @@ dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
     // Remove the next line if you don't want to depend on the API
 
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    common(project(path: ":common")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 
-    modApi "net.pitan76:mcpitanlib-neoforge-${rootProject.mcpitanlib_version}"
+    api "net.pitan76:mcpitanlib-neoforge-${rootProject.mcpitanlib_version}"
 }
 
 processResources {
@@ -41,14 +41,16 @@ processResources {
 shadowJar {
     exclude "fabric.mod.json"
 
+    dependsOn(jar)
+    mainSpec.sourcePaths.clear()
+    from(zipTree(jar.archiveFile))
+
     configurations = [project.configurations.shadowCommon]
-    archiveClassifier.set("dev-shadow")
+    archiveClassifier.set(null)
 }
 
 jar {
-    inputFile.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier.set("dev")
+    archiveClassifier.set("raw")
 }
 
 sourcesJar {

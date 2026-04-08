@@ -26,10 +26,10 @@ dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
 
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    common(project(path: ":common")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
-    modApi "net.pitan76:mcpitanlib-forge-${rootProject.mcpitanlib_version}"
+    api "net.pitan76:mcpitanlib-forge-${rootProject.mcpitanlib_version}"
 }
 
 processResources {
@@ -43,14 +43,16 @@ processResources {
 shadowJar {
     exclude "fabric.mod.json"
 
+    dependsOn(jar)
+    mainSpec.sourcePaths.clear()
+    from(zipTree(jar.archiveFile))
+
     configurations = [project.configurations.shadowCommon]
-    setArchiveClassifier("dev-shadow")
+    archiveClassifier.set(null)
 }
 
 jar {
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-    setArchiveClassifier("dev")
+    archiveClassifier.set("raw")
 }
 
 sourcesJar {
