@@ -1,9 +1,9 @@
 package net.pitan76.mvo76.addon.mpl;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.network.chat.Component;
 import net.pitan76.mcpitanlib.api.util.SoundEventUtil;
 import net.pitan76.mcpitanlib.api.util.TextUtil;
 import net.pitan76.mcpitanlib.api.util.client.ClientUtil;
@@ -11,15 +11,15 @@ import net.pitan76.mcpitanlib.api.util.client.ScreenUtil;
 import net.pitan76.mvo76.screen.ModVolumeOptionsScreen;
 
 public class MPLUtil {
-    public static String txt2str_TextUtil(Text text) {
+    public static String txt2str_TextUtil(Component text) {
         return TextUtil.txt2str(text);
     }
 
-    public static Text translatable_TextUtil(String key) {
+    public static Component translatable_TextUtil(String key) {
         return TextUtil.translatable(key);
     }
 
-    public static Text literal_TextUtil(String text) {
+    public static Component literal_TextUtil(String text) {
         return TextUtil.literal(text);
     }
 
@@ -35,7 +35,7 @@ public class MPLUtil {
         return ClientUtil.getScreen();
     }
 
-    public static ButtonWidget createButtonWidget_ScreenUtil(int x, int y, int width, int height, Text message, ButtonWidget.PressAction onPress) {
+    public static Button createButtonWidget_ScreenUtil(int x, int y, int width, int height, Component message, Button.OnPress onPress) {
         return ScreenUtil.createButtonWidget(x, y, width, height, message, onPress);
     }
 

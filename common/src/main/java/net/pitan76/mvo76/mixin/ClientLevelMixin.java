@@ -1,8 +1,8 @@
 package net.pitan76.mvo76.mixin;
 
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvent;
 import net.pitan76.mvo76.Config;
 import net.pitan76.mvo76.ModVolumeOptions;
 import net.pitan76.mvo76.addon.mpl.MPLUtil;
@@ -13,16 +13,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ClientWorld.class)
-public abstract class ClientWorldMixin {
+@Mixin(ClientLevel.class)
+public abstract class ClientLevelMixin {
 
-    @Shadow protected abstract void playSound(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean useDistance, long seed);
+    @Shadow protected abstract void playSound(double x, double y, double z, SoundEvent event, SoundSource category, float volume, float pitch, boolean useDistance, long seed);
 
     @Unique
     private static boolean mvo76$cancelSound = true;
 
-    @Inject(method = "playSound(DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FFZJ)V", at = @At("HEAD"), cancellable = true)
-    public void mvo76$playSound(double x, double y, double z, SoundEvent event, SoundCategory category, float volume, float pitch, boolean useDistance, long seed, CallbackInfo ci) {
+    @Inject(method = "playSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZJ)V", at = @At("HEAD"), cancellable = true)
+    public void mvo76$playSound(double x, double y, double z, SoundEvent event, SoundSource category, float volume, float pitch, boolean useDistance, long seed, CallbackInfo ci) {
         if (!mvo76$cancelSound) {
             mvo76$cancelSound = true;
             return;
@@ -32,7 +32,7 @@ public abstract class ClientWorldMixin {
         if (ModVolumeOptions.isMCPitanLibLoaded) {
             namespace = MPLUtil.getSoundNamespace_MPLUtil(event);
         } else {
-            namespace = event.id().getNamespace();
+            namespace = event.location().getNamespace();
         }
 
 

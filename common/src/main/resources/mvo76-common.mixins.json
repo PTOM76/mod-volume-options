@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "ClientWorldMixin",
+    "ClientLevelMixin",
     "SoundOptionsScreenMixin"
   ],
   "injectors": {

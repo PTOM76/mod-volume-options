@@ -42,13 +42,9 @@ shadowJar {
     setArchiveClassifier("dev-shadow")
 }
 
-remapJar {
+jar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    setArchiveClassifier(null)
-}
-
-jar {
     setArchiveClassifier("dev")
 }
 

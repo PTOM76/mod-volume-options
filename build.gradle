@@ -1,7 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.13-SNAPSHOT" apply false
-    id 'com.matthewprenger.cursegradle' version '1.+'
+    id "dev.architectury.loom" version "1.14-SNAPSHOT" apply false
+    id 'com.matthewprenger.cursegradle' version '1.5.0'
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -17,7 +17,7 @@ subprojects {
     apply plugin: "com.matthewprenger.cursegradle"
 
     loom {
-        silentMojangMappingsLicense()
+//        silentMojangMappingsLicense()
     }
 
     repositories {
@@ -30,12 +30,7 @@ subprojects {
 
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.layered() {
-            it.mappings("net.fabricmc:yarn:${rootProject.yarn_mappings}:v2")
-            it.mappings file("../mappings/121-1fix.tiny")
-        }
-
-        modImplementation "net.pitan76:mcpitanlib-common-${rootProject.mcpitanlib_version}"
+        implementation "net.pitan76:mcpitanlib-common-${rootProject.mcpitanlib_version}"
     }
 
     if (name in "fabric,neoforge".split(",")) {
@@ -46,7 +41,7 @@ subprojects {
                 apiKey = System.getenv("CURSEFORGE_TOKEN")
                 project {
                     id = '981874'
-                    changelog = 'update to 1.21.11'
+                    changelog = 'update to 21.6'
                     releaseType = 'release'
                     if (modLoader == "fabric") {
                         addGameVersion "Fabric"
@@ -57,7 +52,8 @@ subprojects {
                     if (modLoader == "neoforge") {
                         addGameVersion "NeoForge"
                     }
-                    addGameVersion '1.21.11'
+                    addGameVersion '26.1'
+                    addGameVersion '26.1.1'
                     relations {
                         if (modLoader == "fabric") {
                             requiredDependency "fabric-api"
@@ -65,7 +61,7 @@ subprojects {
                         requiredDependency 'mcpitanlibarch'
                     }
 
-                    mainArtifact(tasks.remapJar)
+                    mainArtifact(tasks.jar)
                 }
                 options {
                     forgeGradleIntegration = false
@@ -79,10 +75,10 @@ subprojects {
                 token = System.getenv("MODRINTH_TOKEN")
                 projectId = 'SNHwFOKm'
                 versionNumber = project.mod_version + "-" + modLoader
-                gameVersions = ['1.21.11']
+                gameVersions = ['26.1', '26.1.1']
                 versionType = 'release'
-                uploadFile = tasks.remapJar
-                changelog = 'update to 1.21.11'
+                uploadFile = tasks.jar
+                changelog = 'update to 21.6'
                 loaders = [modLoader]
                 dependencies {
                     if (modLoader == "fabric") {
@@ -99,7 +95,7 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    archivesBaseName = rootProject.archives_base_name
+    base.archivesName = rootProject.archives_base_name
     version = rootProject.mod_version
     group = rootProject.maven_group
 
@@ -113,9 +109,9 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
-        options.release = 21
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        options.release = 25
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
     java {

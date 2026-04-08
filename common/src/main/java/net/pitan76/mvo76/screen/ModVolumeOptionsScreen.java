@@ -1,9 +1,9 @@
 package net.pitan76.mvo76.screen;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
 import net.pitan76.mcpitanlib.api.client.SimpleScreen;
 import net.pitan76.mcpitanlib.api.client.gui.screen.ScreenTexts;
 import net.pitan76.mcpitanlib.api.client.gui.widget.SimpleListWidget;
@@ -22,7 +22,7 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
     protected final Screen parent;
     protected SimpleListWidget listWidget;
 
-    public ModVolumeOptionsScreen(Screen parent, Text title) {
+    public ModVolumeOptionsScreen(Screen parent, Component title) {
         super(title);
         this.parent = parent;
     }
@@ -53,16 +53,16 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
         addSelectableChild_compatibility(listWidget);
 
-        ButtonWidget widget = ScreenUtil.createButtonWidget(width / 2 - 100, height - 26, 200, 20,
+        Button widget = ScreenUtil.createButtonWidget(width / 2 - 100, height - 26, 200, 20,
                 ScreenTexts.DONE, (button) -> closeOverride());
         addDrawableChild_compatibility(widget);
     }
 
-    private static Text getPercentValueText(Text prefix, double value) {
+    private static Component getPercentValueText(Component prefix, double value) {
         return TextUtil.translatable("options.percent_value", prefix, (int)(value * 100.0));
     }
 
-    public static Text getGenericValueText(Text prefix, Text value) {
+    public static Component getGenericValueText(Component prefix, Component value) {
         return TextUtil.translatable("options.generic_value", prefix, value);
     }
 
@@ -82,9 +82,9 @@ public class ModVolumeOptionsScreen extends SimpleScreen {
 
     @Override
     public void closeOverride() {
-        MinecraftClient client = ClientUtil.getClient();
+        Minecraft client = ClientUtil.getClient();
         if (client == null) return;
-        client.options.write();
+        client.options.save();
         ClientUtil.setScreen(this.parent);
     }
 
